@@ -3,12 +3,12 @@ from discord.ext import commands
 import json
 from core.classes import Cog_Extension
 
-
+# open json file to read the contents
 with open('setting.json','r',encoding='utf8') as jfile:
     jdata = json.load(jfile)
 
+# here contains some longgggg words
 class Word(Cog_Extension):
-  
     @commands.command()
     async def Pneumonoultramicroscopicsilico_volcanoconiosis(self, ctx):
         member = ctx.author

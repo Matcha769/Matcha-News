@@ -4,6 +4,7 @@ from core.classes import Cog_Extension
 
 class Main(Cog_Extension):
 
+    # help embed
     @commands.command()
     async def help(self, ctx):
         embed = discord.Embed(colour=discord.Colour(0xf1c40f), url="https://discordapp.com", description="這是Matcha News的指令協助")
@@ -22,7 +23,7 @@ class Main(Cog_Extension):
         embed.add_field(name="11. Coin", value="擲硬幣\n用法: `-coin`", inline=False)
         embed.add_field(name="12. Daily", value="預測今日運氣\n用法: `-daily`", inline=False)
         embed.add_field(name="13. Vote", value="投票系統\n用法: `-vote [題目] [後續選項依序用空格分隔(至多七項)]`", inline=False)
-        embed.add_field(name="14. meal", value="選餐系統\n用法: `-meal`", inline=False)
+        embed.add_field(name="14. Meal", value="選餐系統\n用法: `-meal`", inline=False)
         embed.add_field(name="15. Help", value="顯示此視窗\n用法: `-help`", inline=False)
 
         await ctx.send(embed = embed)    

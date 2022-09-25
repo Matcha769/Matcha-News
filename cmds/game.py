@@ -32,11 +32,14 @@ class Game(Cog_Extension):
         except:
           await ctx.send("輸入錯誤，請重新輸入指令")
 
+    # random choser
     @commands.command()
     async def choose(self, ctx, *args):
         chose = random.choice(args)
         response = [f"我覺得{chose}比較好!",f"{chose}看起來比較合理",f"絕對是{chose}了吧"]
         await ctx.send(random.choice(response))
+
+    # vote system
     @commands.command()
     async def vote(self, ctx, *args):
         question = args[0]
@@ -51,6 +54,7 @@ class Game(Cog_Extension):
         for i in range(len(choices)):
             await msg.add_reaction(f"{emoji[i]}")
     
+    # coin tossing
     @commands.command()
     async def coin(self, ctx):
         def check(msg):
@@ -78,7 +82,8 @@ class Game(Cog_Extension):
             except:
                 await ctx.send("輸入錯誤，請重新輸入指令")
                 break
- 
+    
+    # daily fortune-telling
     @commands.command()
     async def daily(self, ctx, *goal):
         member = ctx.author
@@ -93,25 +98,40 @@ class Game(Cog_Extension):
                 answer = "".join(response)
                 await ctx.send(f'{member.mention} 【{i}運氣預測】: ||{answer}||')
 
+    # rock, paper, scissor
     @commands.command()
     async def rps(self, ctx):
-        a = ["石頭", "剪刀", "布"]
+        a = [
+            "石頭", 
+            "剪刀",
+            "布"
+            ]
         start = [
-            ":crossed_swords: 來決鬥吧:crossed_swords: ", "區區一介凡人也妄想挑戰本喵:smirk: ",
-            "就給你一個挑戰的機會吧:rolling_eyes: "
-        ]
+                ":crossed_swords: 來決鬥吧:crossed_swords: ", 
+                "區區一介凡人也妄想挑戰本喵:smirk: ",
+                "就給你一個挑戰的機會吧:rolling_eyes: "
+                ]
         draw = [
-            "本喵不過放水罷了:yawning_face: ", "竟然有和本喵相同的水準:face_with_raised_eyebrow: "
-        ]
+               "本喵不過放水罷了:yawning_face: ", 
+               "竟然有和本喵相同的水準:face_with_raised_eyebrow: "
+               ]
         win = [
-            "甚麼:interrobang: 竟然被打敗了", "不過僥倖被你贏了一次:triumph: ",
-            "能夠贏過本喵，享受無上榮耀吧:unamused: "
-        ]
+              "甚麼:interrobang: 竟然被打敗了", 
+              "不過僥倖被你贏了一次:triumph: ",
+              "能夠贏過本喵，享受無上榮耀吧:unamused: "
+              ]
         lose = [
-            "正常發揮罷了", "你想贏我先去練個800年吧", "失敗是對你的憐憫",
-            ":place_of_worship: 膜拜本喵吧:place_of_worship: "
-        ]
+               "正常發揮罷了", 
+               "你想贏我先去練個800年吧", 
+               "失敗是對你的憐憫",
+               ":place_of_worship: 膜拜本喵吧:place_of_worship: "
+               ]
         msg1 = None
+        rules = {
+                '石頭':'剪刀', 
+                '布':'石頭', 
+                '剪刀':'布'
+                }
 
         def check(msg):
             return msg.author == ctx.author and msg.channel == ctx.channel
@@ -134,27 +154,11 @@ class Game(Cog_Extension):
                 await ctx.send("平手")
                 time.sleep(1)
                 await ctx.send(random.choice(draw))
-            elif msg == "石頭" and answer == "剪刀":
+            elif answer == rules[msg]:
                 await ctx.send("你贏了")
                 time.sleep(1)
                 await ctx.send(random.choice(win))
-            elif msg == "石頭" and answer == "布":
-                await ctx.send("你輸了")
-                time.sleep(1)
-                await ctx.send(random.choice(lose))
-            elif msg == "剪刀" and answer == "布":
-                await ctx.send("你贏了")
-                time.sleep(1)
-                await ctx.send(random.choice(win))
-            elif msg == "剪刀" and answer == "石頭":
-                await ctx.send("你輸了")
-                time.sleep(1)
-                await ctx.send(random.choice(lose))
-            elif msg == "布" and answer == "石頭":
-                await ctx.send("你贏了")
-                time.sleep(1)
-                await ctx.send(random.choice(win))
-            elif msg == "布" and answer == "剪刀":
+            else:
                 await ctx.send("你輸了")
                 time.sleep(1)
                 await ctx.send(random.choice(lose))
