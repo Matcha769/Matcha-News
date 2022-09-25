@@ -15,23 +15,7 @@ intents = discord.Intents.all()
 
 bot = commands.Bot(command_prefix='-', intents=intents, help_command=None)
 
-
-@bot.event
-async def on_ready():
-    activity = discord.Game(name="勥烎菿奣", type=3)
-    await bot.change_presence(status=discord.Status.idle, activity=activity)
-    print(">> Bot is online <<")
-
-
-@bot.event
-async def on_message(message):
-    await bot.process_commands(message)
-    i, ma, se = "\u3044", "\u307e", "\u305b"
-    if "詩音" in message.content and not (message.author.bot):
-        channel = message.channel
-        member = message.author
-        await channel.send(f'{member.mention} {i}{ma}幸{se}?')
-
+# I haven't check how to set only admin can use these commands
 @bot.command()
 async def unload(ctx, extension):
     bot.unload_extension(f'cmds.{extension}')
