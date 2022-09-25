@@ -5,7 +5,6 @@ from discord.ext import commands, tasks
 from random import choice
 import json
 import os
-import time
 import keep_alive
 
 with open('setting.json', 'r', encoding='utf8') as jfile:
