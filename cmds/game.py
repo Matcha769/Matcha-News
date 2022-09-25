@@ -1,11 +1,12 @@
 import discord
 import random
+import time
 from discord.ext import commands
 from core.classes import Cog_Extension
-import time
+
 
 class Game(Cog_Extension):
-    
+    # Guessing number game
     @commands.command()
     async def gn(self, ctx):
         def check(msg):
