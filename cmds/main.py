@@ -38,7 +38,9 @@ class Main(Cog_Extension):
             name="13. Vote", value="投票系統\n用法: `-vote [題目] [後續選項依序用空格分隔(至多七項)]`", inline=False)
         embed.add_field(name="14. meal",
                         value="選餐系統\n用法: `-meal`", inline=False)
-        embed.add_field(name="15. Help",
+        embed.add_field(name="15. hangman",
+                        value="猜字遊戲\n用法: `-hangman`", inline=False)
+        embed.add_field(name="16. Help",
                         value="顯示此視窗\n用法: `-help`", inline=False)
 
         await ctx.send(embed=embed)
