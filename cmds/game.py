@@ -202,11 +202,11 @@ class Game(Cog_Extension):
 
             await message.edit(embed=embed)
             try:
-                guess = await self.bot.wait_for("message", check=lambda msg: msg.author == ctx.author, timeout=30.0)
+                guess = await self.bot.wait_for("message", check=lambda msg: msg.author == ctx.author, timeout=60.0)
                 guessed_letter = list(guess.content.lower())[:len(word)]
             except:
                 embed = discord.Embed(
-                    title="SO BAD", description=f"時間結束! YOU SUCH A FAILURE :melting_face:")
+                    title="SO BAD", description=f"時間結束! YOU SUCH A FAILURE :melting_face: 單字是 {word}.")
                 await message.edit(embed=embed)
                 return False
 
