@@ -40,7 +40,9 @@ class Main(Cog_Extension):
                         value="選餐系統\n用法: `-meal`", inline=False)
         embed.add_field(name="15. hangman",
                         value="猜字遊戲\n用法: `-hangman`", inline=False)
-        embed.add_field(name="16. Help",
+        embed.add_field(name="16. roll",
+                        value="隨機取數\n用法: `-roll [數字]`", inline=False)
+        embed.add_field(name="17. Help",
                         value="顯示此視窗\n用法: `-help`", inline=False)
 
         await ctx.send(embed=embed)

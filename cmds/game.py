@@ -249,7 +249,7 @@ class Game(Cog_Extension):
             num = random.randint(1, number)
             await ctx.send(f"{member.mention} 結果是 {num}")
         except ValueError:
-            await ctx.send("請正確輸入數字")
+            await ctx.send("請輸入數字")
 
 
 async def setup(bot):
