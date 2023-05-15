@@ -215,10 +215,11 @@ class Game(Cog_Extension):
                 if guessed_letters[idx] == "_":
                     if letter == word[idx]:
                         guessed_letters[idx] = letter
-                hidden_word = "".join(guessed_letters)
             else:
                 incorrect_guesses += 1
                 hangman_stage += 1
+
+            hidden_word = "".join(guessed_letters)
 
             if len(word) > 4 and max_attempts - incorrect_guesses <= 2 and hidden_word.count("_") == len(hidden_word):
                 hint = True
@@ -240,6 +241,15 @@ class Game(Cog_Extension):
             embed.color = discord.Color.red()
             await ctx.send(embed=embed)
             return False
+
+    @commands.command()
+    async def roll(self, ctx, number):
+        member = ctx.author
+        try:
+            num = random.randint(1, number)
+            await ctx.send(f"{member.mention} 結果是 {num}")
+        except ValueError:
+            await ctx.send("請正確輸入數字")
 
 
 async def setup(bot):
