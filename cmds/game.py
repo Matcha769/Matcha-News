@@ -167,7 +167,7 @@ class Game(Cog_Extension):
         member = ctx.author
         word_list = jdata["單字"]
         word = random.choice(word_list)
-        max_attempts = 6 if len(word) <= 6 else len(word)
+        max_attempts = 6
         hangman_stages = [
             "```  +---+\n  |   |\n      |\n      |\n      |\n      |\n========```",
             "```  +---+\n  |   |\n  O   |\n      |\n      |\n      |\n========```",
@@ -197,6 +197,8 @@ class Game(Cog_Extension):
                 title="Hangman", description=f"```{hangman_stages[hangman_stage]}```")
             embed.add_field(
                 name="單字", value=f"```{hidden_word}```", inline=False)
+            embed.add_field(
+                name="總字數", value=f"```{len(word)}個字母```", inline=False)
             embed.add_field(name="剩餘次數",
                             value=f"{incorrect_guesses}/{max_attempts}", inline=False)
 
@@ -221,9 +223,9 @@ class Game(Cog_Extension):
 
             hidden_word = "".join(guessed_letters)
 
-            if len(word) > 4 and max_attempts - incorrect_guesses <= 2 and hidden_word.count("_") == len(hidden_word):
+            if len(word) > 4 and max_attempts - incorrect_guesses <= 2 and hidden_word.count("_") >= len(hidden_word) - 1:
                 hint = True
-                for i in random.sample([i for i in range(0, len(word))], 3):
+                for i in random.sample([i for i in range(0, len(word))], 3 if len(word) <= 7 else len(word) - 4):
                     guessed_letters[i] = word[i]
                     hidden_word = "".join(guessed_letters)
 
