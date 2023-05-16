@@ -2,8 +2,10 @@ import discord
 import random
 import json
 import time
+from interactions import Button, spread_to_rows
 from discord.ext import commands
 from core.classes import Cog_Extension
+
 
 with open("setting.json", "r", encoding="utf8") as jfile:
     jdata = json.load(jfile)
@@ -89,9 +91,15 @@ class Game(Cog_Extension):
 
     @commands.command()
     async def daily(self, ctx, *goal):
+        def check_emo(reaction, user):
+            return user == ctx.author and str(reaction.emoji) in ["1️⃣", "2️⃣", "3️⃣", "4️⃣", "5️⃣", "6️⃣", "7️⃣", "8️⃣", "9️⃣"]
+
+        def check(msg):
+            return msg.author == ctx.author and msg.channel == ctx.channel
+
         member = ctx.author
         data = ["小吉", "中吉", "大吉", "吉", "末吉", "凶", "大凶"]
-        response = random.choices(data, weights=[40, 30, 5, 20, 50, 10, 5])
+        response = random.choices(data, weights=[40, 30, 5, 20, 50, 100, 50])
         answer, thing = "".join(response), "".join(goal)
         if not thing:
             await ctx.send(f"{member.mention} 【今日運氣預測】: ||{answer}||")
@@ -101,6 +109,40 @@ class Game(Cog_Extension):
                     data, weights=[40, 30, 5, 20, 50, 10, 5])
                 answer = "".join(response)
                 await ctx.send(f"{member.mention} 【{i}運氣預測】: ||{answer}||")
+
+        if answer in ["凶", "大凶"]:
+            await ctx.send("是否開啟轉運 (Y / N) :")
+            response = await self.bot.wait_for("message", check=check)
+
+            if response.content.lower() in ["yes", "y"]:
+                embed = discord.Embed(
+                    title="轉運時間", description=f"```現在是你的回合```")
+                embed.add_field(
+                    name="你有10秒做出選擇", value="", inline=False)
+                msg = await ctx.send(embed=embed)
+                embed = discord.Embed(colour=discord.Colour(0xF1C40F))
+                emoji = {0: "1️⃣", 1: "2️⃣", 2: "3️⃣",
+                        3: "4️⃣", 4: "5️⃣", 5: "6️⃣", 6: "7️⃣",
+                        7: "8️⃣", 8: "9️⃣"}
+                for i in range(9):
+                    await msg.add_reaction(f"{emoji[i]}")
+                try:
+                    await ctx.bot.wait_for("reaction_add", timeout=10.0, check=check_emo)
+                except asyncio.TimeoutError:
+                    await ctx.send("時間結束! 你失去了")
+                else:
+                    await ctx.send("看來你做出了選擇")
+                    result = random.choices(data, weights=[40, 30, 10, 20, 50, 5, 3])[0]
+                    time.sleep(1)
+                    await ctx.send(f"{member.mention} 轉運結果是: ||{result}||")
+                    time.sleep(3)
+
+                    if result == "凶":
+                        await ctx.send("那我也沒辦法囉:man_shrugging:")
+                    elif result == "大凶":
+                        await ctx.send("那你最好還是別出門了:saluting_face:")
+                    else:
+                        await ctx.send("轉運成功的拉")
 
     @commands.command()
     async def rps(self, ctx):
