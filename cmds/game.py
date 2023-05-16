@@ -99,7 +99,7 @@ class Game(Cog_Extension):
 
         member = ctx.author
         data = ["小吉", "中吉", "大吉", "吉", "末吉", "凶", "大凶"]
-        response = random.choices(data, weights=[40, 30, 5, 20, 50, 100, 50])
+        response = random.choices(data, weights=[40, 30, 5, 20, 50, 10, 5])
         answer, thing = "".join(response), "".join(goal)
         if not thing:
             await ctx.send(f"{member.mention} 【今日運氣預測】: ||{answer}||")
