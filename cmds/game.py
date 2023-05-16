@@ -127,8 +127,8 @@ class Game(Cog_Extension):
                 for i in range(9):
                     await msg.add_reaction(f"{emoji[i]}")
                 try:
-                    await ctx.bot.wait_for("reaction_add", timeout=10.0, check=check_emo)
-                except asyncio.TimeoutError:
+                    await self.bot.wait_for("reaction_add", timeout=10.0, check=check_emo)
+                except:
                     await ctx.send("時間結束! 你失去了")
                 else:
                     await ctx.send("看來你做出了選擇")
