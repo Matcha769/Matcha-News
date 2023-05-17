@@ -36,6 +36,9 @@ class Brain(Cog_Extension):
                     while not num.content.isdigit():
                         await ctx.send("請輸入 1 ~ 9 的數字")
                         num = await self.bot.wait_for("message", check=lambda msg: msg.author == ctx.author, timeout=60.0)
+                    while not len(num.content) != len(number):
+                        await ctx.send(f"請輸入{number}位數字")
+                        num = await self.bot.wait_for("message", check=lambda msg: msg.author == ctx.author, timeout=60.0)
                 except:
                     await ctx.send("時間到，太慢囉!")
                     return 
