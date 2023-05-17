@@ -2,7 +2,6 @@ import discord
 import random
 import json
 import time
-from interactions import Button, spread_to_rows
 from discord.ext import commands
 from core.classes import Cog_Extension
 
@@ -285,16 +284,6 @@ class Game(Cog_Extension):
             embed.color = discord.Color.red()
             await ctx.send(embed=embed)
             return False
-
-    @commands.command()
-    async def roll(self, ctx, number):
-        member = ctx.author
-        try:
-            num = random.randint(1, number)
-            await ctx.send(f"{member.mention} 結果是 {num}")
-        except ValueError:
-            await ctx.send("請輸入數字")
-
-
+        
 async def setup(bot):
     await bot.add_cog(Game(bot))
