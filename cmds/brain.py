@@ -39,6 +39,9 @@ class Brain(Cog_Extension):
                     while not len(num.content) == int(number):
                         await ctx.send(f"請輸入{number}位數字")
                         num = await self.bot.wait_for("message", check=lambda msg: msg.author == ctx.author, timeout=60.0)
+                    while not len(set(num.content)) == len(num.content):
+                        await ctx.send(f"不會有重複的數字喔，債想想")
+                        num = await self.bot.wait_for("message", check=lambda msg: msg.author == ctx.author, timeout=60.0)
                 except:
                     await ctx.send("時間到，太慢囉!")
                     return 
