@@ -42,7 +42,9 @@ class Main(Cog_Extension):
                         value="猜字遊戲\n用法: `-hangman`", inline=False)
         embed.add_field(name="16. roll",
                         value="隨機取數\n用法: `-roll [數字]`", inline=False)
-        embed.add_field(name="17. Help",
+        embed.add_field(name="17. 1A2B",
+                        value="1A2B玩起來\n用法: `-password [位數]`", inline=False)
+        embed.add_field(name="18. Help",
                         value="顯示此視窗\n用法: `-help`", inline=False)
 
         await ctx.send(embed=embed)
